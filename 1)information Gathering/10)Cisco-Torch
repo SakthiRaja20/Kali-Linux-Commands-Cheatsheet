@@ -10,11 +10,30 @@ Written in Perl, it can quickly probe large ranges of IPs looking for Cisco rout
 
 2. Why Use It?
 
-.Security teams use Cisco-Torch to audit Cisco devices for weak configurations.
-.Attackers could also use it to exploit misconfigured routers.
-.Helps identify:
-.Default/weak passwords
-.Unprotected SNMP access
-.Exposure of Cisco Discovery Protocol
+• Security teams use Cisco-Torch to audit Cisco devices for weak configurations.
+• Attackers could also use it to exploit misconfigured routers.
+• Helps identify:
+• Default/weak passwords
+• Unprotected SNMP access
+• Exposure of Cisco Discovery Protocol
 
 ---
+
+🛠️ Example Usage
+
+cisco-torch.pl -A 192.168.1.0/24
+
+-A = aggressive scan, tries multiple methods.
+
+• Target: 192.168.1.0/24 (a whole subnet).
+• Bruteforce with dictionary:
+
+cisco-torch.pl -b -U users.txt -P pass.txt 192.168.1.1
+
+-b = brute force
+-U = usernames list
+-P = passwords list
+
+---
+
+⚠️ Note: Cisco-Torch is an old tool (not actively maintained). Many features may not work on modern Cisco IOS versions. Modern alternatives include Nmap NSE scripts, Hydra, or SNMP-check.
