@@ -1,0 +1,20 @@
+✅ Acknowledgement: Cisco-Torch – Kali Linux
+
+1. What is Cisco-Torch?
+
+Cisco-Torch is a Cisco network auditing tool.
+It is used mainly by penetration testers and security researchers to enumerate Cisco devices and check them for common misconfigurations or vulnerabilities.
+Written in Perl, it can quickly probe large ranges of IPs looking for Cisco routers/switches.
+
+---
+
+2. Why Use It?
+
+.Security teams use Cisco-Torch to audit Cisco devices for weak configurations.
+.Attackers could also use it to exploit misconfigured routers.
+.Helps identify:
+.Default/weak passwords
+.Unprotected SNMP access
+.Exposure of Cisco Discovery Protocol
+
+---
