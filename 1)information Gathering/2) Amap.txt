@@ -1,0 +1,57 @@
+
+1) What is AMAP?
+
+AMAP is a service fingerprinting tool that identifies which application or protocol is running on a
+given TCP/UDP port, even when the service is running on a non-standard port.
+
+____
+
+2) Why use AMAP?
+
+• Detects real services behind open ports.
+• Finds misconfigured/hidden services.
+• Complements port scanners (e.g., Nmap).
+
+___
+3) How does AMAP work?
+
+1. Provide target host/ports.
+2. AMAP sends crafted probes.
+3. Reads service response/banner.
+4. Matches with fingerprint database.
+5. Identifies the actual service.
+____
+4) Lab Example
+Context: Node.js app running on localhost:3000 (macOS host), scanned from Kali.
+Command:
+amap -bqv 192.168.18.54 3000
+Flags:
+-b : print ASCII banner
+-q : hide closed ports
+-v : verbose
+Response:
+HTTP/1.1 400 Bad Request
+Interpretation: Confirms HTTP service on port 3000 (non-standard).
+____
+5) Practical Workflow (Nmap ➜ AMAP)
+
+Step 1: Find open ports
+nmap -p
+
+Step 2: Fingerprint services
+amap -B ...
+
+___
+6) Limitations
+
+• Fingerprint database is older than Nmap’s modern service detection.
+• Can trigger IDS/IPS.
+• Best used with a prior Nmap scan.
+
+___
+7) Summary
+
+• What: AMAP fingerprints services on TCP/UDP ports.
+• Why: To identify real apps, especially on non-standard ports.
+• How: Probe ➜ Response ➜ Fingerprint match.
+• Lab Use Case: Confirmed HTTP on port 3000 (Node.js app)
