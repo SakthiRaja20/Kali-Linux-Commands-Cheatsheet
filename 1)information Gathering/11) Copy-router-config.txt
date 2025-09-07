@@ -1,0 +1,30 @@
+✅ Acknowledgement:Copy-router-config– Kali Linux
+
+🔗 Official tool page:https://www.kali.org/tools/copy-router-config/
+
+
+What is it?
+
+• A Cisco IOS command to save or restore router configuration.
+• Copies config between running-config, startup-config, and external servers (TFTP/FTP/Flash).
+
+____
+
+Why use it?
+
+• Backup -> Save router configs to a file (e.g., copy-router-config.txt ) for disaster recovery.
+• Restore -> Reload a saved config after crash/reset.
+• Deployment —> Apply the same configuration across multiple routers quickly.
+• Auditing -> Keep historical copies of network configs.
+
+_____
+
+How does copy-router-config work?
+
+1. Connects to the Cisco router using protocols like TFTP, FTP, or SCP (sometimes SNMP in automated tools).
+2. Requests the running-config or startup-config from the router.
+3. Transfers the configuration file to a remote server (e.g., TFTP server or local Kali machine).
+4. Saves it as a text file (Copy-router-config.txt) for backup or analysis.
+
+_____
+
