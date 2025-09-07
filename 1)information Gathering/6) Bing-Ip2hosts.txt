@@ -1,0 +1,56 @@
+✅ Acknowledgement: bing-ip2hosts – Kali Linux
+
+🔗 Official tool page: https://www.kali.org/tools/bing-ip2hosts
+
+1) What is bing-ip2hosts?
+
+bing-ip2hosts is a reverse IP lookup tool that uses the Bing search engine to find hostnames (domains) hosted on the same IP.
+
+____
+
+2) Why use bing-ip2hosts?
+
+Discover other domains/websites sharing the same IP.
+Useful for reconnaissance in penetration testing.
+Helps identify shared hosting or forgotten/test subdomains.
+
+____
+
+3) How does bing-ip2hosts work?
+
+You provide a target IP address.
+Tool queries Bing with ip:<target-IP>.
+Extracts and lists hostnames/domains mapped to that IP.
+
+____
+
+4) Exact Use Case (Lab Example)
+
+Command:
+
+bing-ip2hosts 93.184.216.34
+
+Expected Output (when it worked):
+
+93.184.216.34 → example.com
+93.184.216.34 → www.example.com
+93.184.216.34 → test.example.org
+
+____
+
+5) Limitations (Important)
+
+❌ Not actively maintained.
+❌ Bing has changed its API policies, breaking or limiting functionality.
+❌ Often fails to return results today.
+✅ Only works for domains indexed by Bing (incomplete).
+
+____
+
+6) Summary
+
+What: Old reverse IP lookup tool using Bing.
+Why: To enumerate domains hosted on the same IP.
+How: Query Bing → extract hostnames.
+Status: ⚠️ Outdated & limited today.
+Better Options: Use crt.sh, SecurityTrails, or Shodan instead.
