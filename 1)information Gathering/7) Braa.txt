@@ -1,0 +1,67 @@
+✅ Acknowledgement: braa – Kali Linux
+
+🔗 Official tool page: https://www.kali.org/tools/braa
+
+1) What is braa?
+
+braa is a SNMP scanner.
+It can query SNMP-enabled devices (like routers, switches, servers) across a network.
+Works very fast → can send multiple SNMP requests in parallel.
+
+____
+
+2) Why use braa?
+
+To find SNMP-enabled hosts in a network.
+To collect SNMP information (like system name, uptime, interfaces).
+Useful in network reconnaissance and vulnerability assessment, since SNMP is often misconfigured with default or weak community strings.
+
+____
+
+3) How does braa work?
+
+You provide a target (IP range) and an SNMP community string (like public).
+braa sends SNMP queries (GET requests).
+Devices that respond are listed with their details.
+Results can be saved to a file (like braa.txt).
+
+____
+
+4) Lab Example
+
+Command:
+
+braa public@192.168.1.0/24:.1.3.6.*
+public → SNMP community string
+
+192.168.1.0/24 → target subnet
+
+.1.3.6.* → OID (Object Identifier) to query (MIB tree info)
+
+____
+
+5) Practical Workflow
+
+Identify the target subnet.
+Run braa with the community string (public, private, or custom).
+Save results to a file (braa.txt).
+Analyze which devices respond to SNMP queries.
+
+____
+
+6) Limitations
+
+Requires SNMP to be enabled on target devices.
+Needs community string (default = public), otherwise no response.
+Only works in local/accessible networks.
+No longer actively developed (but still useful in labs).
+Can be noisy and easily detected in enterprise environments.
+
+____
+
+7) Summary
+
+What: braa is a fast SNMP scanner.
+Why: To discover SNMP-enabled devices and collect info.
+How: Send SNMP requests ➜ receive system info.
+Limitations: Needs SNMP + correct community string, outdated but works for learning.
