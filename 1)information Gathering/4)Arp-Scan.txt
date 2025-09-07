@@ -1,0 +1,74 @@
+✅ Acknowledgement: arp-scan – Kali Linux
+
+🔗 Official tool page: https://www.kali.org/tools/arp-scan
+
+1) What is arp-scan?
+
+arp-scan is a network discovery tool that uses the ARP protocol to identify active devices on a local network.
+Works at Layer 2 (Data Link Layer).
+Sends ARP requests to all hosts in a subnet and collects replies.
+___
+
+2) Why use arp-scan?
+
+Quickly finds all live hosts on a LAN (faster than ping scans).
+Works even if hosts block ICMP (ping) or other probes.
+Reveals both IP addresses and MAC addresses.
+Useful for network inventory, troubleshooting, and pentesting.
+
+____
+
+3) How does arp-scan work?
+
+You specify a target network/subnet (e.g., 192.168.1.0/24).
+arp-scan sends ARP requests to every IP in the subnet.
+Devices that exist on the LAN reply with their MAC + IP address.
+Results are displayed in a table.
+
+____
+
+4) Exact Use Case (Lab Example)
+
+Command:
+sudo arp-scan --interface=eth0 192.168.1.0/24
+
+Sample Output:
+
+192.168.1.1    00:11:22:33:44:55   Cisco Systems
+192.168.1.10   08:00:27:ab:cd:ef   PCS Systemtechnik
+192.168.1.20   9c:5c:8e:12:34:56   Apple, Inc.
+
+👉 Interpretation: Found 3 devices, showing IP, MAC address, and vendor.
+
+____
+
+5) Practical Workflow
+
+Identify network interface
+ip addr show
+
+Run arp-scan on subnet
+
+sudo arp-scan --interface=eth0 192.168.1.0/24
+
+Optional: Scan whole local net with automatic interface detection
+
+sudo arp-scan --localnet
+
+____
+
+6) Limitations
+
+Only works on the local subnet (Layer 2 broadcast domain).
+Cannot scan across routers or remote networks.
+Some devices may ignore ARP requests (stealth/security settings).
+Can be noisy and alert monitoring systems.
+
+_____
+7) Summary
+
+What: arp-scan is a tool to discover live hosts on a LAN.
+Why: Fast and reliable host discovery, even when ping is blocked.
+How: Sends ARP requests ➜ gets MAC + IP replies.
+
+Lab Use Case: Found 3 devices in a home LAN with IP, MAC, and vendor info.
