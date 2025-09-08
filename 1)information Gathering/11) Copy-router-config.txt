@@ -50,14 +50,27 @@ copy-router-config --target 192.168.1.1 --community public
 
 _____
 
- 5) Limitations
+5) Practical Workflow
+
+1. Install (pre-included in Kali):
+
+sudo apt install copy-router-config
+
+2. Run with SNMP community:
+
+copy-router-config - -target <router IP> --community public
+
+3. Output file saved locally -+ open in text editor.
+_____
+
+ 6) Limitations
 
 • Works only if SNMP/TFTP/HTTP is enabled and misconfigured.
 • Doesn’t bypass strong authentication (secured routers won’t be affected).
 • Tool is old and not actively updated (modern Cisco devices may block it)
 • Primarily for lab/testing, not reliable in modern hardened networks.
 
- 6) Summary
+ 7) Summary
 
 • Copy-router-config = A Kali Linux tool for downloading Cisco router configs using misconfigured services.
 • Useful in pentesting labs to demonstrate risks of weak SNMP/TFTP setups.
