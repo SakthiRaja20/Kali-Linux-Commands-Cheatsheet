@@ -1,0 +1,93 @@
+✅ Acknowledgement: Dnstracer – Kali Linux
+🔗 Official tool page: https://www.kali.org/tools/dnstracer
+
+⸻
+
+1) What is Dnstracer?
+
+Dnstracer is a DNS tracing tool.
+It tracks the path a DNS query takes from the root servers down to the authoritative nameserver for a given domain.
+
+⸻
+
+2) Why use Dnstracer?
+
+• To understand how DNS resolves a domain step by step.
+• Verify if DNS delegation is configured correctly.
+• Detect misconfigured or hijacked DNS servers.
+• Useful for troubleshooting DNS resolution and pentesting DNS infrastructure.
+
+⸻
+
+3) How does Dnstracer work?
+
+• User provides a target domain.
+• Starts at root nameservers (or specified resolver).
+• Queries each step in DNS delegation chain (root → TLD → authoritative server).
+• Prints results showing which servers respond and how the query was resolved.
+
+⸻
+
+4) Exact Use Case (Lab Example)
+
+Command:
+
+dnstracer example.com
+
+Observed Results (sample output):
+
+🔹 Query path:
+
+• oot servers (.) → referred to .com TLD servers.
+• .com TLD servers → referred to iana-servers.net.
+• iana-servers.net → authoritative for example.com.
+
+🔹 Final Result:
+example.com → 93.184.216.34
+
+Interpretation:
+
+• DNS resolution works correctly from root → TLD → authoritative servers.
+• No hijacks or misconfigurations detected.
+
+⸻
+
+5) Practical Workflow
+
+1. Install (already in Kali, but in case missing):
+
+sudo apt install dnstracer
+
+2. Trace DNS for a domain:
+
+dnstracer example.com
+
+3. Use a specific starting nameserver:
+
+dnstracer -s 8.8.8.8 example.com
+
+4. Display all intermediate results in detail:
+
+dnstracer -v example.com
+
+⸻
+
+6) Limitations
+
+• Only traces the DNS path, doesn’t enumerate subdomains.
+• Limited to IPv4 by default (IPv6 support may vary).
+• Not stealthy → queries visible in DNS logs.
+• Less useful for reconnaissance; mainly for diagnostics/troubleshooting.
+
+⸻
+
+7) Summary
+
+What: DNS tracing tool showing how queries resolve step by step.
+Why: Check DNS delegation, detect misconfigs, troubleshoot DNS issues.
+How: Starts at root servers and follows chain to authoritative nameserver.
+Use Case: Example.com → traced query from root → .com → IANA servers → final IP 93.184.216.34.
+
+Note: Great for DNS troubleshooting; not designed for subdomain discovery like dnsenum or dnsrecon.
+
+⸻
