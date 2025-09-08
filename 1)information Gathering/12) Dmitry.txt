@@ -1,0 +1,124 @@
+✅ Acknowledgement: DMitry (Deepmagic Information Gathering Tool) – Kali Linux
+🔗 Official tool page: https://www.kali.org/tools/dmitry
+
+⸻
+
+1) What is DMitry?
+
+DMitry is a lightweight command-line reconnaissance tool.
+It can collect WHOIS info, Netcraft data, subdomains, emails, and open ports for a given domain or IP address.
+
+⸻
+
+2) Why use DMitry?
+
+• One tool → multiple recon techniques in one scan.
+• Helps gather domain registration + hosting info.
+• Finds open ports and basic services.
+• Useful in footprinting phase of penetration testing.
+
+⸻
+
+3) How does DMitry work?
+
+1. User provides a target (domain/IP).
+2. DMitry runs WHOIS lookups (domain + IP block).
+3. Contacts Netcraft for hosting information.
+4. Uses search engines to find emails + subdomains.
+5. Performs a basic TCP port scan.
+6. Saves output if -o option is given.
+
+⸻
+
+4) Exact Use Case (Lab Example)
+
+Command:
+
+dmitry -winsepo example.com
+
+
+Flags used:
+
+ -w → Domain WHOIS lookup
+-i → IP WHOIS lookup
+-n → Netcraft info
+-s → Subdomain search
+-e → Email search
+-p → TCP port scan
+-o → Save results to file
+
+Observed Results (sample output):
+
+🔹 Host Info:
+
+Host IP → 93.184.216.34
+Hostname → example.com
+
+🔹 Domain WHOIS (example.com):
+
+Registrar → IANA
+Created → 1995-08-14
+Updated → 2023-08-14
+Expiry → 2030-08-14
+Nameservers → a.iana-servers.net, b.iana-servers.net
+
+🔹 Subdomain Search:
+
+No additional subdomains found.
+
+🔹 Email Search:
+
+No public emails discovered.
+
+🔹 TCP Port Scan (on 93.184.216.34):
+
+• 80/tcp → Open (HTTP)
+• 443/tcp → Open (HTTPS)
+• All other scanned ports → Closed
+
+Interpretation:
+
+• Domain active until 2030.
+• Hosted by IANA on stable infrastructure.
+• Only web services (HTTP/HTTPS) exposed.
+• No extra subdomains/emails available publicly.
+
+⸻
+
+5) Practical Workflow
+
+1.Install (if missing):
+
+sudo apt install dmitry
+
+2. Run WHOIS only:
+
+dmitry -w example.com
+
+3.Run full scan:
+
+dmitry -winsepo example.com
+
+4.View saved results:
+
+cat example.com.txt
+
+⸻
+
+6) Limitations
+
+• Outdated subdomain/email search (Altavista no longer works).
+• No stealth → scans are noisy and logged by target.
+• Netcraft module gives minimal info.
+• Still fine for labs, but outdated for professional use → replaced by modern tools like theHarvester, Amass, Recon-ng.
+
+⸻
+
+7) Summary
+
+What: Recon tool that combines WHOIS, Netcraft, DNS, subdomain/email search, and port scanning.
+Why: Quick and simple footprinting of domains/hosts.
+How: Uses public databases + basic TCP scanning.
+Use Case: Example.com → gave registrar info, DNS servers, IP, and detected HTTP/HTTPS ports.
+
+⸻
