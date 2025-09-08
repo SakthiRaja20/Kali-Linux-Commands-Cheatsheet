@@ -1,0 +1,90 @@
+✅ Acknowledgement: Dnsmap – Kali Linux
+🔗 Official tool page: https://www.kali.org/tools/dnsmap
+
+⸻
+
+1) What is Dnsmap?
+
+Dnsmap is a subdomain brute-forcing tool.
+It tries common hostnames against a target domain to discover hidden subdomains and map the DNS attack surface.
+
+⸻
+
+2) Why use Dnsmap?
+
+1. Quickly finds subdomains that may not be publicly listed.
+2. Helps discover hidden servers (dev, test, mail, VPN, etc.).
+3. Useful in footprinting and attack surface discovery.
+4. Can generate a wordlist of found subdomains for further tools.
+
+⸻
+
+3) How does Dnsmap work?
+
+1. Takes a target domain as input.
+2. Uses an internal wordlist (or custom) of common subdomains.
+3. Queries DNS servers for each entry.
+4. Outputs valid subdomains + their IP addresses.
+5. Optionally saves results to a text file.
+
+⸻
+4) Exact Use Case (Lab Example)
+
+Command:
+
+dnsmap example.com
+
+Observed Results (sample output):
+
+🔹 Discovered Subdomains:
+
+• www.example.com → 93.184.216.34
+• mail.example.com → 93.184.216.35
+• ftp.example.com → 93.184.216.36
+
+🔹 Output Saved:
+
+• Results written into dnsmap_example.com.txt
+
+Interpretation:
+• Found multiple hosts related to the domain.
+• Indicates different services (web, mail, FTP).
+• These may be tested for vulnerabilities.
+
+⸻
+5) Practical Workflow
+
+1. Install (already in Kali, but in case missing):
+
+sudo apt install dnsmap
+
+2. Run basic scan:
+
+dnsmap example.com
+
+3.Save results to file:
+
+dnsmap example.com -r results.txt
+
+4. Use custom wordlist:
+
+dnsmap example.com -w /usr/share/wordlists/dnsmap.txt
+
+⸻
+6) Limitations
+
+• Relies on wordlists → may miss uncommon subdomains.
+• No Google/OSINT integration (unlike dnsenum).
+• Not stealthy → enumeration visible in DNS logs.
+• Slower on very large wordlists.
+
+⸻
+
+7) Summary
+
+What: Subdomain brute-forcer in Kali Linux.
+Why: Identify hidden services/subdomains.
+How: Uses DNS queries with a wordlist.
+Use Case: Example.com → discovered www, mail, ftp subdomains with IPs.
+
+👉 Note: Great for labs + quick checks, but should be combined with advanced tools like Amass/Sublist3r for full recon.
