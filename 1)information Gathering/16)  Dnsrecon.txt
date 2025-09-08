@@ -1,0 +1,107 @@
+1) What is Dnsrecon?
+
+Dnsrecon is a powerful DNS enumeration tool in Kali Linux.
+It performs standard record lookups, reverse lookups, brute-force, zone transfers, and Google/OSINT-based subdomain discovery.
+
+⸻
+
+2) Why use Dnsrecon?
+
+• To gather DNS information during reconnaissance.
+• etect zone transfer vulnerabilities.
+• Discover subdomains and hosts via brute force and OSINT.
+• Enumerate DNS records (A, AAAA, MX, NS, SOA, TXT).
+• Map the attack surface of a domain.
+
+⸻
+
+3) How does Dnsrecon work?
+
+•  User provides a domain/IP.
+• Queries DNS servers for all standard records.
+• Performs reverse lookups on discovered IP ranges.
+• Brute-forces subdomains using wordlists.
+• Tries zone transfer (AXFR) against nameservers.
+• Can export results into XML/JSON/CSV for reporting.
+
+⸻
+
+4) Exact Use Case (Lab Example)
+
+Command:
+
+dnsrecon -d example.com
+
+Observed Results (sample output):
+
+🔹 DNS Records:
+
+• A → 93.184.216.34
+• NS → a.iana-servers.net, b.iana-servers.net
+• MX → mail.example.com
+• TXT → v=spf1 -all
+
+🔹 Subdomain Enumeration:
+
+• www.example.com → 93.184.216.34
+• ftp.example.com → 93.184.216.36
+
+🔹 Reverse Lookup:
+
+93.184.216.34 → www.example.com
+
+🔹 Zone Transfer Attempt:
+
+Tried against a.iana-servers.net → Failed (Transfer not allowed).
+
+Interpretation:
+
+• Domain mapped with authoritative DNS + mail server.
+• Exposed FTP subdomain → potential attack surface.
+• Zone transfer blocked (secure configuration).
+
+⸻
+
+5) Practical Workflow
+
+1. Install (already in Kali, but in case missing):
+
+sudo apt install dnsrecon
+
+2.Basic domain scan:
+
+dnsrecon -d example.com
+
+3.Brute-force subdomains:
+
+dnsrecon -d example.com -D /usr/share/wordlists/dnsmap.txt -t brt
+
+4.Attempt zone transfer:
+
+dnsrecon -d example.com -t axfr
+
+5.Save results (CSV/JSON):
+
+dnsrecon -d example.com -t std --json results.json
+
+⸻
+
+6) Limitations
+
+• Brute-force effectiveness depends on wordlist quality.
+• Zone transfer attempts often blocked on secured DNS.
+• Can be noisy → visible in DNS logs.
+• For large domains, enumeration may take time.
+
+⸻
+
+7) Summary
+
+What: DNS enumeration and subdomain discovery tool.
+Why: Collect DNS records, find subdomains, check for zone transfers.
+How: Performs standard lookups, brute-force, reverse lookups, OSINT.
+Use Case: Example.com → found web/mail/FTP records, confirmed zone transfer blocked.
+
+👉 Note: More advanced and flexible than dnsenum or dnsmap.
+
+⸻
