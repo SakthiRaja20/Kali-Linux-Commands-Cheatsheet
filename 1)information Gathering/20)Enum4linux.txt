@@ -1,0 +1,108 @@
+✅ Acknowledgement: Enum4linux – Kali Linux
+🔗 Official tool page: https://www.kali.org/tools/enum4linux
+
+⸻
+
+1) What is Enum4linux?
+
+Enum4linux is a Windows/Samba enumeration tool for Linux.
+It extracts information from Windows hosts (via SMB protocol) such as users, groups, shares, OS details, and passwords policies.
+
+⸻
+
+2) Why use Enum4linux?
+
+• To gather usernames and groups from a Windows system.
+• Enumerate shared folders (SMB shares).
+• Detect Windows version and OS info.
+• Test null sessions and weak configurations.
+• Widely used in penetration testing during the reconnaissance phase.
+
+⸻
+
+3) How does Enum4linux work?
+
+• Uses SMB (TCP 139/445) to connect to the target.
+• Tries null session or provided credentials.
+• Extracts data using Samba commands (rpcclient, smbclient, nmblookup).
+• Reports back usernames, groups, shares, policies, and OS details.
+
+⸻
+
+4) Exact Use Case (Lab Example)
+
+Command:
+
+enum4linux -a 192.168.1.100
+
+Flags used:
+
+-a → Do all simple enumeration (-U, -S, -G, -P, -r)
+-U → Get users list
+-S → Get share list
+-G → Get groups list
+-P → Get password policy info
+-r → RID cycling (try user/group IDs)
+
+Observed Results (sample output):
+
+🔹 Target: 192.168.1.100
+
+• OS info → Windows Server 2016 Standard
+• Users found → Administrator, Guest, John, TestUser
+• Groups found → Administrators, Users, Guests
+• Shares → C$, IPC$, SharedDocs
+• Password policy → Minimum length = 8, Lockout after 5 attempts
+
+Interpretation:
+
+• Null session worked → host not hardened.
+• Retrieved sensitive user/group info useful for further attacks (e.g., brute force).
+• Found accessible share → SharedDocs.
+
+⸻
+
+5) Practical Workflow
+
+1.Install (already in Kali, but if missing):
+
+sudo apt install enum4linux
+
+2.Run a full enumeration:
+
+enum4linux -a <target_IP>
+
+3.Get only users:
+
+enum4linux -U <target_IP>
+
+4.Enumerate shares:
+
+enum4linux -S <target_IP>
+
+5.Save results to file:
+
+enum4linux -a <target_IP> > results.txt
+
+⸻
+
+6) Limitations
+
+• Requires SMB ports (139/445) open.
+• If target disables null sessions, results may be limited.
+• Noisy → easily detected in logs.
+• Not updated for newer Windows versions (some results may fail).
+• Modern alternatives: CrackMapExec, Impacket tools, smbmap.
+
+⸻
+
+7) Summary
+
+What: SMB/Windows enumeration tool for Linux.
+Why: Extract users, groups, shares, password policies.
+How: Uses SMB connections (null sessions or creds) to pull data.
+Use Case: Lab on Windows Server → Enumerated users, groups, shares, and password policy.
+
+👉 Note: Still useful in labs, but newer tools recommended in modern pentests.
+
+⸻
