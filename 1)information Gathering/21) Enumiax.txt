@@ -1,0 +1,87 @@
+✅ Acknowledgement: EnumIAX – Kali Linux
+🔗 Official tool page: https://www.kali.org/tools/enumiax
+
+⸻
+
+1) What is EnumIAX?
+
+EnumIAX is a VoIP enumeration tool that targets the Inter-Asterisk eXchange protocol (IAX2).
+It can discover valid IAX2 usernames on a VoIP server by sending crafted authentication requests.
+
+⸻
+2) Why use EnumIAX?
+
+• To identify active VoIP accounts on an IAX2 server.
+• Helps attackers or pentesters build a list of valid extensions/users.
+• Useful in VoIP penetration testing during recon/footprinting.
+• Can test the security of Asterisk PBX servers.
+
+⸻
+3) How does EnumlAX work?
+
+• Connects to the target IA)Q service (UDP/4569).
+• Sends authentication requests with different usernames.
+• Analyzes server responses to detect if the username exists.
+• Builds a list of valid accounts/extensions.
+______
+4) Exact Use Case (Lab Example)
+
+Command:
+
+enumiax -d users.txt -i 192.168.1.50
+
+Flags used:
+
+-d → Dictionary file (list of usernames/extensions)
+-i → Target IP address
+-h → Help
+
+Observed Results (sample output):
+
+🔹 Target: 192.168.1.50 (Asterisk PBX server)
+
+• Trying: 1000 → Valid user
+• Trying: 1001 → Valid user
+• Trying: admin → Valid user
+• Trying: guest → Not found
+
+Interpretation:
+
+• Discovered 3 valid VoIP accounts (1000, 1001, admin).
+• These accounts could be used for brute-forcing passwords or call fraud.
+
+⸻
+
+5) Practical Workflow
+
+1. Install (already in Kali, but if missing):
+
+sudo apt install enumiax
+
+2. Run with a wordlist:
+
+enumiax -d /usr/share/wordlists/voip-users.txt -i <target_IP>
+
+3. Save results to file:
+
+enumiax -d users.txt -i <target_IP> > results.txt
+
+⸻
+
+6) Limitations
+
+• Works only on IAX2 protocol (UDP/4569).
+• Requires a good username wordlist.
+• Cannot brute-force passwords (only finds valid usernames).
+• Outdated → many VoIP servers use SIP instead of IAX2 today.
+
+⸻
+
+7) Summary
+
+What: VoIP (IAX2) username enumeration tool.
+Why: Find valid IAX2 accounts on Asterisk/VoIP servers.
+How: Sends crafted auth requests, checks server responses.
+Use Case: Discovered valid users (1000, 1001, admin) on lab PBX server.
+
+Note: Useful for VoIP labs, but limited since SIP is more widely used in modern environments.
