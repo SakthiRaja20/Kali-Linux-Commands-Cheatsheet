@@ -88,6 +88,6 @@ Why: Check DNS delegation, detect misconfigs, troubleshoot DNS issues.
 How: Starts at root servers and follows chain to authoritative nameserver.
 Use Case: Example.com → traced query from root → .com → IANA servers → final IP 93.184.216.34.
 
-Note: Great for DNS troubleshooting; not designed for subdomain discovery like dnsenum or dnsrecon.
+👉 Note: Great for DNS troubleshooting; not designed for subdomain discovery like dnsenum or dnsrecon.
 
 ⸻

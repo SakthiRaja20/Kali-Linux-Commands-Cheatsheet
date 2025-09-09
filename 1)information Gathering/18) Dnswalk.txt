@@ -1,0 +1,101 @@
+✅ Acknowledgement: Dnswalk – Kali Linux
+🔗 Official tool page: https://www.kali.org/tools/dnswalk
+
+⸻
+
+1) What is Dnswalk?
+
+Dnswalk is a DNS zone file and consistency checker.
+It analyzes DNS information for a target domain and verifies that records are properly configured.
+
+⸻
+
+2) Why use Dnswalk?
+
+• To perform a DNS audit on a domain.
+• Detect misconfigurations in DNS records.
+• Check for consistency across DNS servers.
+• Identify zone transfer vulnerabilities.
+• Useful for troubleshooting and security testing.
+
+⸻
+
+3) How does Dnswalk work?
+
+1.User provides a domain.
+2.Tool queries DNS servers for the zone information.
+3.If zone transfer (AXFR) is allowed, it downloads the zone file.
+4.Runs checks on:
+        • SOA (Start of Authority) records.
+        • MX (Mail) records.
+        • NS (Nameserver) records.
+        • A/AAAA records consistency.
+5.Reports errors, warnings, or misconfigurations.
+
+⸻
+
+4) Exact Use Case (Lab Example)
+
+Command:
+
+dnswalk example.com
+
+Observed Results (sample output):
+
+🔹 Zone transfer attempt:
+
+• a.iana-servers.net → Transfer refused.
+• b.iana-servers.net → Transfer refused.
+
+🔹 DNS Checks:
+
+• SOA record → OK.
+• MX record → mail.example.com exists, reachable.
+• NS consistency → Both authoritative servers match.
+• A record → 93.184.216.34 resolved.
+
+Interpretation:
+
+• Zone transfer correctly blocked (secure config).
+• DNS servers consistent and functioning.
+• No major misconfigurations found.
+
+⸻
+
+5) Practical Workflow
+
+1.Install (already in Kali, but in case missing):
+
+sudo apt install dnswalk
+
+2.Run a basic scan:
+
+dnswalk example.com
+
+3.Perform a full recursive check:
+
+dnswalk -r example.com
+
+4.Save results to a file:
+
+dnswalk example.com > results.txt
+
+⸻
+
+6) Limitations
+
+• Depends on zone transfer availability (often disabled on secure DNS).
+• Primarily for audit/troubleshooting, not subdomain discovery.
+• Can be noisy → logged by DNS servers.
+• Outdated compared to modern tools like dnsrecon or amass.
+
+⸻
+
+7) Summary
+
+What: DNS audit and consistency-checking tool.
+Why: Verify DNS zone integrity and detect misconfigurations.
+How: Performs zone transfers (if allowed), validates DNS records.
+Use Case: Example.com → checked SOA, MX, NS, A records, confirmed zone transfer blocked.
+
+👉 Note: Great for DNS administrators and labs, but limited in pentesting due to modern security hardening.
